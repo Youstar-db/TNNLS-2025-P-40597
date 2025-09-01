@@ -1,0 +1,32 @@
+CC     = "D:\Matlab2021\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "D:\Matlab2021\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "D:\Matlab2021\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -nodeclspec 
+LDFLAGS = -s -dll -L"D:\Matlab2021\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"data_sfun.obj"\
+	"c4_data.obj"\
+	"data_sfun_registry.obj"\
+	"half_type.obj"\
+	"lccstub.obj"\
+	"c_mexapi_version.obj"\
+
+INCLUDE_PATH= -I"D:\Matlab2021\extern\include"  -I"D:\Matlab2021\simulink\include"  -I"D:\Matlab2021\simulink\include\sf_runtime"  -I"D:\Matlab2021\stateflow\c\mex\include"  -I"D:\Matlab2021\rtw\c\src"  -I"D:\second_code\slprj\_sfprj\data\_self\sfun\src"  -I"D:\second_code"  -I"D:\Matlab2021\sys\lcc64\lcc64\include64" 
+ 
+
+data_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o data_sfun.mexw64 @data_sfun.lmko
+data_sfun.obj :	"D:\second_code\slprj\_sfprj\data\_self\sfun\src\data_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\second_code\slprj\_sfprj\data\_self\sfun\src\data_sfun.c"
+c4_data.obj :	"D:\second_code\slprj\_sfprj\data\_self\sfun\src\c4_data.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\second_code\slprj\_sfprj\data\_self\sfun\src\c4_data.c"
+data_sfun_registry.obj :	"D:\second_code\slprj\_sfprj\data\_self\sfun\src\data_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\second_code\slprj\_sfprj\data\_self\sfun\src\data_sfun_registry.c"
+half_type.obj :	"D:\second_code\slprj\_sfprj\data\_self\sfun\src\half_type.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\second_code\slprj\_sfprj\data\_self\sfun\src\half_type.c"
+lccstub.obj :	"D:\Matlab2021\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\Matlab2021\sys\lcc64\lcc64\mex\lccstub.c"
+c_mexapi_version.obj :	"D:\Matlab2021\extern\version\c_mexapi_version.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "D:\Matlab2021\extern\version\c_mexapi_version.c"
